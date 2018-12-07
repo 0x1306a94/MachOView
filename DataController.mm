@@ -163,7 +163,9 @@ NSString * const MVStatusTaskTerminated           = @"MVStatusTaskTerminated";
 //-----------------------------------------------------------------------------
 - (void)writeString:(NSString *)str toFile:(FILE *)pFile
 {
-  fwrite(CSTRING(str), [str length] + 1, 1, pFile);
+    if (str && str.length > 0) {
+        fwrite(CSTRING(str), [str length] + 1, 1, pFile);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -923,18 +925,6 @@ NSString * const MVStatusTaskTerminated           = @"MVStatusTaskTerminated";
 @synthesize fileName, fileData, realData, layouts, rootNode, selectedNode, treeLock;
 
 //-----------------------------------------------------------------------------
-/*
-- (void)dealloc
-{
-  NSLog(@"********MVDataController deallocated: %@", self);
-  for (MVLayout * layout in layouts)
-  {
-    NSLog(@"%@ Retain count is %ld", layout, CFGetRetainCount((__bridge CFTypeRef)layout));
-  }
-}
-*/
-
-//-----------------------------------------------------------------------------
 -(id)init
 {
   if (self = [super init]) 
@@ -1249,7 +1239,6 @@ NSString * const MVStatusTaskTerminated           = @"MVStatusTaskTerminated";
 #ifndef MV_NO_ARCHIVER
     saverThread = [[NSThread alloc] initWithTarget:self selector:@selector(doSave) object:nil];
     [saverThread start];
-    NSLog(@"********MVArchiver started: %@", self);
 #endif    
   }
   return self;
@@ -1277,7 +1266,6 @@ NSString * const MVStatusTaskTerminated           = @"MVStatusTaskTerminated";
 -(void) halt
 {
   [saverThread cancel];
-  NSLog(@"********MVArchiver halted: %@", self);
 }
 
 //-----------------------------------------------------------------------------
@@ -1347,7 +1335,7 @@ NSString * const MVStatusTaskTerminated           = @"MVStatusTaskTerminated";
       //return;
       //[NSThread exit];
     }
-      // do not wait for new rows if the saver has been cancelled
+      // do not wait for new rows if the saver has benn cancelled
       // just flush out the existing ones
       continue;
     }

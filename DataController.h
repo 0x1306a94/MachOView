@@ -203,7 +203,7 @@ private:
   MVNodeSaver(MVNodeSaver const &);
   MVNodeSaver & operator=(MVNodeSaver const &);
   
-  MVNode * __weak m_node;
+  MVNode * m_node;
 };
 
 

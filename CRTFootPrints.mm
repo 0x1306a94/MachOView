@@ -6,11 +6,6 @@
  *
  */
 
-#include <string>
-#include <vector>
-#include <set>
-#include <map>
-
 #import "CRTFootPrints.h"
 #import "DataController.h"
 

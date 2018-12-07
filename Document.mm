@@ -6,12 +6,6 @@
  *
  */
 
-#include <string>
-#include <vector>
-#include <set>
-#include <map>
-#include <cxxabi.h>
-
 #import "Common.h"
 #import "Document.h"
 #import "DataController.h"
@@ -338,35 +332,41 @@ enum ViewType
     threadCount = 0;
     
     NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-    typeof(self) __weak weakSelf = self;
     
     /*
-    [nc addObserver:weakSelf
+    [nc addObserver:self 
            selector:@selector(handleDataTreeWillChange:) 
                name:MVDataTreeWillChangeNotification
              object:nil]; 
     
-    [nc addObserver:weakSelf
+    [nc addObserver:self 
            selector:@selector(handleDataTreeDidChange:) 
                name:MVDataTreeDidChangeNotification
              object:nil]; 
     */
-    [nc addObserver:weakSelf
+    [nc addObserver:self 
            selector:@selector(handleDataTreeChanged:) 
                name:MVDataTreeChangedNotification
              object:nil]; 
     
-    [nc addObserver:weakSelf
+    [nc addObserver:self 
            selector:@selector(handleDataTableChanged:) 
                name:MVDataTableChangedNotification
              object:nil]; 
 
-    [nc addObserver:weakSelf 
+    [nc addObserver:self 
            selector:@selector(handleThreadStateChanged:) 
                name:MVThreadStateChangedNotification
              object:nil];
   }
   return self;
+}
+
+//----------------------------------------------------------------------------
+- (void)dealloc
+{
+  NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+  [nc removeObserver:self];
 }
 
 //----------------------------------------------------------------------------
@@ -455,18 +455,22 @@ enum ViewType
     {
       if (OSAtomicIncrement32(&threadCount) == 1)
       {
-        [progressIndicator setUsesThreadedAnimation:YES];
-        [progressIndicator startAnimation:nil];
-        [stopButton setHidden:NO];
+          dispatch_async(dispatch_get_main_queue(), ^{
+              [progressIndicator setUsesThreadedAnimation:YES];
+              [progressIndicator startAnimation:nil];
+              [stopButton setHidden:NO];
+          });
       }
     }
     else if ([threadState isEqualToString:MVStatusTaskTerminated] == YES)
     {
       if (OSAtomicDecrement32(&threadCount) == 0)
       {
-        [progressIndicator stopAnimation:nil]; 
-        [statusText setStringValue:@""];
-        [stopButton setHidden:YES];
+          dispatch_async(dispatch_get_main_queue(), ^{
+              [progressIndicator stopAnimation:nil];
+              [statusText setStringValue:@""];
+              [stopButton setHidden:YES];
+          });
       }
     }
   }
@@ -700,8 +704,6 @@ enum ViewType
 //----------------------------------------------------------------------------
 - (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-
   for (MVLayout * layout in dataController.layouts)
   {
     [layout.backgroundThread cancel];

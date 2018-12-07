@@ -6,12 +6,6 @@
  *
  */
 
-#include <string>
-#include <vector>
-#include <set>
-#include <map>
-#include <cxxabi.h>
-
 #import "Common.h"
 #import "FatLayout.h"
 #import "DataController.h"
@@ -54,7 +48,7 @@ using namespace std;
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  uint32_t magic = [dataController read_uint32:range lastReadHex:&lastReadHex];
+  uint32_t magic = [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Magic Number"
@@ -63,7 +57,7 @@ using namespace std;
 
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Number of Architecture"
@@ -79,7 +73,7 @@ using namespace std;
     [dataController.fileData getBytes:&fat_arch range:NSMakeRange(NSMaxRange(range), sizeof(struct fat_arch))];
     swap_fat_arch(&fat_arch, 1, NX_LittleEndian);
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"CPU Type"
@@ -92,7 +86,7 @@ using namespace std;
                             fat_arch.cputype == CPU_TYPE_POWERPC64 ? @"CPU_TYPE_POWERPC64" : 
                             @"???"];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"CPU SubType"
@@ -133,19 +127,19 @@ using namespace std;
                             ((fat_arch.cpusubtype & ~CPU_SUBTYPE_MASK) == CPU_SUBTYPE_X86_64_ALL ? @"CPU_SUBTYPE_X86_64_ALL" : @"???") : 
                              @"???"];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Offset"
                            :[NSString stringWithFormat:@"%u",fat_arch.offset]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
                            :[NSString stringWithFormat:@"%u",fat_arch.size]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Align"

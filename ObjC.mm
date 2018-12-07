@@ -412,25 +412,25 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"CFString Ptr"
                            :[self findSymbolAtRVA:cfstring_t->ptr]];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@""
                            :[self findSymbolAtRVA:cfstring_t->data]];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"String"
                            :(symbolName = [self findSymbolAtRVA:cfstring_t->cstr])];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
@@ -471,25 +471,25 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"CFString Ptr"
                            :[self findSymbolAtRVA64:cfstring64_t->ptr]];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@""
                            :[self findSymbolAtRVA64:cfstring64_t->data]];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"String"
                            :(symbolName = [self findSymbolAtRVA64:cfstring64_t->cstr])];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
@@ -516,13 +516,13 @@ struct message_ref64
   
   MATCH_STRUCT(objc_image_info,location)
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Version"
                          :[NSString stringWithFormat:@"%u",objc_image_info->version]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Flags"
@@ -564,7 +564,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -581,19 +581,19 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:objc_ivar_t->ivar_name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Type"
                            :[self findSymbolAtRVA:objc_ivar_t->ivar_type]];
     
-    [dataController read_int32:range lastReadHex:&lastReadHex];
+    [self read_int32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Offset"
@@ -634,7 +634,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Obsolete"
@@ -642,7 +642,7 @@ struct message_ref64
 
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -659,19 +659,19 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:objc_method_t->method_name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Types"
                            :[self findSymbolAtRVA:objc_method_t->method_types]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"IMP (Function Pointer)"
@@ -712,7 +712,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -729,13 +729,13 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:objc_method_description_t->name])];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Types"
@@ -775,31 +775,31 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA:objc_protocol_t->isa]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA:objc_protocol_t->protocol_name]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocol List"
                          :[self findSymbolAtRVA:objc_protocol_t->protocol_list]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Method Descrs"
                          :[self findSymbolAtRVA:objc_protocol_t->instance_methods]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Method Descrs"
@@ -874,7 +874,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Next"
@@ -882,7 +882,7 @@ struct message_ref64
 
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -895,7 +895,7 @@ struct message_ref64
 
   for (int32_t nprot = 0; nprot < objc_protocol_list_t->count; ++nprot)
   {
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :[NSString stringWithFormat:@"Protocol[%i]",nprot]
@@ -956,31 +956,31 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA:objc_class_t->isa]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Super Class"
                          :[self findSymbolAtRVA:objc_class_t->super_class]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA:objc_class_t->name]];
   
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Version"
                          :[NSString stringWithFormat:@"%i", objc_class_t->version]];
   
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Info"
@@ -1006,31 +1006,31 @@ struct message_ref64
   if (objc_class_t->info & 0x20000) [node.details appendRow:@"":@"":@"20000":@"CLS_EXT"];
 
 
-  [dataController read_int32:range lastReadHex:&lastReadHex];
+  [self read_int32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Size"
                          :[NSString stringWithFormat:@"%i", objc_class_t->instance_size]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Vars"
                          :[self findSymbolAtRVA:objc_class_t->ivars]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Method Lists"
                          :[self findSymbolAtRVA:objc_class_t->methodLists]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Cache"
                          :[self findSymbolAtRVA:objc_class_t->cache]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
@@ -1118,42 +1118,35 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  NSString * className;
-  NSString * categoryName;
-  
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
-                         :categoryName = [self findSymbolAtRVA:objc_category_t->category_name]];
+                         :[self findSymbolAtRVA:objc_category_t->category_name]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Name"
-                         :className = [self findSymbolAtRVA:objc_category_t->class_name]];
+                         :[self findSymbolAtRVA:objc_category_t->class_name]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Methods"
                          :[NSString stringWithFormat:@"0x%X",objc_category_t->instance_methods]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Methods"
                          :[NSString stringWithFormat:@"0x%X",objc_category_t->class_methods]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
                          :[NSString stringWithFormat:@"0x%X",objc_category_t->protocols]];
-  
-
-  node.caption = [NSString stringWithFormat:@"%@ [%@ %@]", node.caption, className, categoryName];
-  
   
   MVNode * childNode = nil;
   
@@ -1224,37 +1217,37 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Selector Reference Count"
                          :[NSString stringWithFormat:@"%u", objc_symtab_t->sel_ref_cnt]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"References"
                          :[self findSymbolAtRVA:objc_symtab_t->refs]];
   
-  [dataController read_uint16:range lastReadHex:&lastReadHex];
+  [self read_uint16:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Definition Count"
                          :[NSString stringWithFormat:@"%u", objc_symtab_t->cls_def_cnt]];
   
-  [dataController read_uint16:range lastReadHex:&lastReadHex];
+  [self read_uint16:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Category Definition Count"
                          :[NSString stringWithFormat:@"%u", objc_symtab_t->cat_def_cnt]];
   
-  // processing definitions
+  // continue processing definitions
   for (uint32_t ndef = 0; ndef < objc_symtab_t->cls_def_cnt + objc_symtab_t->cat_def_cnt; ++ndef)
   {
     uint32_t location = [self RVAToFileOffset:objc_symtab_t->defs[ndef]];
     NSString * caption = [self findSymbolAtRVA:objc_symtab_t->defs[ndef]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :[NSString stringWithFormat:@"Definition[%u]",ndef]
@@ -1308,25 +1301,25 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Version"
                            :[NSString stringWithFormat:@"%u", objc_module_t->version]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
                            :[NSString stringWithFormat:@"%u", objc_module_t->size]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:objc_module_t->name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Symtab"
@@ -1367,19 +1360,19 @@ struct message_ref64
   
   while (NSMaxRange(range) < location + length)
   {
-    uint32_t value1 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value1 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
                            :[NSString stringWithFormat:@"%u", value1]];
     
-    uint32_t value2 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value2 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@""
                            :[NSString stringWithFormat:@"%u", value2]];
     
-    uint32_t propertyList = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t propertyList = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Property List"
@@ -1419,25 +1412,25 @@ struct message_ref64
   
   while (NSMaxRange(range) < location + length)
   {
-    uint32_t value1 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value1 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
                            :[NSString stringWithFormat:@"%u", value1]];
     
-    uint32_t value2 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value2 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Method Descrs"
                            :[NSString stringWithFormat:@"0x%X", value2]];
     
-    uint32_t value3 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value3 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@""
                            :[NSString stringWithFormat:@"%u", value3]];
 
-    uint32_t value4 = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t value4 = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@""
@@ -1481,7 +1474,7 @@ struct message_ref64
     // accumulate search info
     NSString * symbolName = nil;
     
-    uint32_t rva = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t rva = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Pointer"
@@ -1513,7 +1506,7 @@ struct message_ref64
     // accumulate search info
     NSString * symbolName = nil;
 
-    uint64_t rva64 = [dataController read_uint64:range lastReadHex:&lastReadHex];
+    uint64_t rva64 = [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Pointer"
@@ -1547,13 +1540,13 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"IMP"
                            :[self findSymbolAtRVA:message_ref->imp]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"SEL"
@@ -1586,13 +1579,13 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
 
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"IMP"
                            :[self findSymbolAtRVA64:message_ref64->imp]];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"SEL"
@@ -1633,7 +1626,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -1641,7 +1634,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -1658,19 +1651,19 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:method_t->name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Types"
                            :[self findSymbolAtRVA:method_t->types]];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Implementation"
@@ -1711,7 +1704,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -1719,7 +1712,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -1736,19 +1729,19 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA64:method64_t->name])];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Types"
                            :[self findSymbolAtRVA64:method64_t->types]];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Implementation"
@@ -1789,7 +1782,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -1797,7 +1790,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -1814,13 +1807,13 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:objc_property->name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Attributes"
@@ -1861,7 +1854,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -1869,7 +1862,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -1886,13 +1879,13 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA64:objc_property64->name])];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Attributes"
@@ -1933,49 +1926,49 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA:protocol_t->isa]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA:protocol_t->name]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
                          :[self findSymbolAtRVA:protocol_t->protocols]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Methods"
                          :[self findSymbolAtRVA:protocol_t->instanceMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Methods"
                          :[self findSymbolAtRVA:protocol_t->classMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Optional Inst Methods"
                          :[self findSymbolAtRVA:protocol_t->optionalInstanceMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Optional Class Methods"
                          :[self findSymbolAtRVA:protocol_t->optionalClassMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Properties"
@@ -2086,49 +2079,49 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA64:protocol64_t->isa]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA64:protocol64_t->name]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
                          :[self findSymbolAtRVA64:protocol64_t->protocols]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Methods"
                          :[self findSymbolAtRVA64:protocol64_t->instanceMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Methods"
                          :[self findSymbolAtRVA64:protocol64_t->classMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Optional Inst Methods"
                          :[self findSymbolAtRVA64:protocol64_t->optionalInstanceMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Optional Class Methods"
                          :[self findSymbolAtRVA64:protocol64_t->optionalClassMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Properties"
@@ -2239,7 +2232,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -2250,7 +2243,7 @@ struct message_ref64
   
   for (uint32_t nprot = 0; nprot < protocol_list_t->count; ++nprot)
   {
-    uint32_t protocolAddr = [dataController read_uint32:range lastReadHex:&lastReadHex];
+    uint32_t protocolAddr = [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :[NSString stringWithFormat:@"list[%u]",nprot]
@@ -2300,7 +2293,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -2311,7 +2304,7 @@ struct message_ref64
   
   for (uint64_t nprot = 0; nprot < protocol64_list_t->count; ++nprot)
   {
-    uint64_t protocolAddr = [dataController read_uint64:range lastReadHex:&lastReadHex];
+    uint64_t protocolAddr = [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :[NSString stringWithFormat:@"list[%qu]",nprot]
@@ -2361,7 +2354,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -2369,7 +2362,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -2386,31 +2379,31 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Offset"
                            :[self findSymbolAtRVA:ivar_t->offset]];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA:ivar_t->name])];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Type"
                            :[self findSymbolAtRVA:ivar_t->type]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Alignment"
                            :[NSString stringWithFormat:@"%u",ivar_t->alignment]];
 
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
@@ -2451,7 +2444,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Entry Size"
@@ -2459,7 +2452,7 @@ struct message_ref64
   
   [node.details setAttributes:MVCellColorAttributeName,[NSColor greenColor],nil];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Count"
@@ -2476,31 +2469,31 @@ struct message_ref64
     NSUInteger bookmark = node.details.rowCount;
     NSString * symbolName = nil;
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Offset"
                            :[self findSymbolAtRVA64:ivar64_t->offset]];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Name"
                            :(symbolName = [self findSymbolAtRVA64:ivar64_t->name])];
     
-    [dataController read_uint64:range lastReadHex:&lastReadHex];
+    [self read_uint64:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Type"
                            :[self findSymbolAtRVA64:ivar64_t->type]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Alignment"
                            :[NSString stringWithFormat:@"%u",ivar64_t->alignment]];
     
-    [dataController read_uint32:range lastReadHex:&lastReadHex];
+    [self read_uint32:range lastReadHex:&lastReadHex];
     [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                            :lastReadHex
                            :@"Size"
@@ -2541,7 +2534,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Flags"
@@ -2551,55 +2544,55 @@ struct message_ref64
   if (class_ro_t->flags & RO_ROOT) [node.details appendRow:@"":@"":@"0x2":@"RO_ROOT"];
   if (class_ro_t->flags & RO_HAS_CXX_STRUCTORS) [node.details appendRow:@"":@"":@"0x4":@"RO_HAS_CXX_STRUCTORS"];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Start"
                          :[NSString stringWithFormat:@"%u", class_ro_t->instanceStart]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Size"
                          :[NSString stringWithFormat:@"%u", class_ro_t->instanceSize]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Var Layout"
                          :[self findSymbolAtRVA:class_ro_t->ivarLayout]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA:class_ro_t->name]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Methods"
                          :[self findSymbolAtRVA:class_ro_t->baseMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Protocols"
                          :[self findSymbolAtRVA:class_ro_t->baseProtocols]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Variables"
                          :[self findSymbolAtRVA:class_ro_t->ivars]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Weak Instance Var Layout"
                          :[self findSymbolAtRVA:class_ro_t->weakIvarLayout]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Properties"
@@ -2686,7 +2679,7 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Flags"
@@ -2696,61 +2689,61 @@ struct message_ref64
   if (class64_ro_t->flags & RO_ROOT) [node.details appendRow:@"":@"":@"0x2":@"RO_ROOT"];
   if (class64_ro_t->flags & RO_HAS_CXX_STRUCTORS) [node.details appendRow:@"":@"":@"0x4":@"RO_HAS_CXX_STRUCTORS"];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Start"
                          :[NSString stringWithFormat:@"%u", class64_ro_t->instanceStart]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Size"
                          :[NSString stringWithFormat:@"%u", class64_ro_t->instanceSize]];
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Reserved"
                          :[NSString stringWithFormat:@"%u", class64_ro_t->reserved]];
 
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Var Layout"
                          :[self findSymbolAtRVA64:class64_ro_t->ivarLayout]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA64:class64_ro_t->name]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Methods"
                          :[self findSymbolAtRVA64:class64_ro_t->baseMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Protocols"
                          :[self findSymbolAtRVA64:class64_ro_t->baseProtocols]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Variables"
                          :[self findSymbolAtRVA64:class64_ro_t->ivars]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Weak Instance Var Layout"
                          :[self findSymbolAtRVA64:class64_ro_t->weakIvarLayout]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Base Properties"
@@ -2837,31 +2830,31 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA:class_t->isa]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Super Class"
                          :[self findSymbolAtRVA:class_t->superclass]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Cache"
                          :[self findSymbolAtRVA:class_t->cache]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"VTable"
                          :[self findSymbolAtRVA:class_t->vtable]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Data"
@@ -2912,31 +2905,31 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"ISA"
                          :[self findSymbolAtRVA64:class64_t->isa]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Super Class"
                          :[self findSymbolAtRVA64:class64_t->superclass]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Cache"
                          :[self findSymbolAtRVA64:class64_t->cache]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"VTable"
                          :[self findSymbolAtRVA64:class64_t->vtable]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Data"
@@ -2987,37 +2980,37 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA:category_t->name]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class"
                          :[self findSymbolAtRVA:category_t->cls]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Methods"
                          :[self findSymbolAtRVA:category_t->instanceMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Methods"
                          :[self findSymbolAtRVA:category_t->classMethods]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
                          :[self findSymbolAtRVA:category_t->protocols]];
 
-  [dataController read_uint32:range lastReadHex:&lastReadHex];
+  [self read_uint32:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Properties"
@@ -3116,37 +3109,37 @@ struct message_ref64
   NSRange range = NSMakeRange(location,0);
   NSString * lastReadHex;
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Name"
                          :[self findSymbolAtRVA64:category64_t->name]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"CLS"
                          :[self findSymbolAtRVA64:category64_t->cls]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Methods"
                          :[self findSymbolAtRVA64:category64_t->instanceMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Class Methods"
                          :[self findSymbolAtRVA64:category64_t->classMethods]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Protocols"
                          :[self findSymbolAtRVA64:category64_t->protocols]];
   
-  [dataController read_uint64:range lastReadHex:&lastReadHex];
+  [self read_uint64:range lastReadHex:&lastReadHex];
   [node.details appendRow:[NSString stringWithFormat:@"%.8lX", range.location]
                          :lastReadHex
                          :@"Instance Properties"
